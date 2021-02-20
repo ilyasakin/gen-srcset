@@ -1,0 +1,8 @@
+{
+  "name": "gen-srcset",
+  "version": "0.0.1",
+  "main": "src/index.js",
+  "repository": "https://github.com/iakindev/gen-srcset",
+  "author": "İlyas Akın <ashnwor@gmail.com>",
+  "license": "MIT"
+}
