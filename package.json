@@ -11,7 +11,8 @@
     "postbuild": "cp package.json dist && cp README.md dist"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.13"
+    "@babel/runtime": "^7.12.13",
+    "commander": "^7.1.0"
   },
   "devDependencies": {
     "@atolye15/eslint-config": "^1.2.0",
