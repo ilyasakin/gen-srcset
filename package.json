@@ -9,13 +9,15 @@
   "author": "İlyas Akın <ashnwor@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node dist/index.js",
     "dev": "nodemon --exec babel-node --extensions '.js,.ts' src/index.js",
     "build": "yarn run babel --extensions '.js,.ts' --ignore '**/__tests__' src -d dist --copy-files",
     "postbuild": "cp package.json dist && cp README.md dist"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.13",
-    "commander": "^7.1.0"
+    "commander": "^7.1.0",
+    "sharp": "^0.27.1"
   },
   "devDependencies": {
     "@atolye15/eslint-config": "^1.2.0",
