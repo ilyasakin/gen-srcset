@@ -15,8 +15,9 @@ const main = async () => {
   const input = path.resolve(options.input);
   const filename = path.basename(input);
 
+  if (!options.input) throw new Error('input argument is required');
   if (!options.breakpoints) throw new Error('breakpoints argument is required');
-  console.log(options);
+
   const breakpoints = options.breakpoints.split(',').map((value) => value.replace(' ', ''));
 
   breakpoints.forEach((breakpoint) => {
