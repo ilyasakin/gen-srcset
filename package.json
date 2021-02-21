@@ -13,6 +13,7 @@
     "dev": "nodemon --exec babel-node --extensions '.js,.ts' src/index.js",
     "build": "yarn run babel --extensions '.js,.ts' --ignore '**/__tests__' src -d dist --copy-files",
     "postbuild": "cp package.json dist && cp README.md dist",
+    "pretest": "yarn run deliquus",
     "test": "jest"
   },
   "dependencies": {
