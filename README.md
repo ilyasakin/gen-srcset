@@ -10,7 +10,10 @@ Generate \<picture /> srcset with AVIF support.
 
 ## Example usage
 
-`yarn gen-srcset --input=images/cat-image.jpg --breakpoints="480, 720, 1080"`  
+```bash
+yarn gen-srcset --input=images/cat-image.jpg --breakpoints="480, 720, 1080"
+```
+
 This will generate these files:
 
 - cat-image_480.jpg
