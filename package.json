@@ -1,6 +1,6 @@
 {
   "name": "gen-srcset",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "main": "src/index.js",
   "bin": {
     "gen-srcset": "./index.js"
@@ -36,5 +36,20 @@
     "nodemon": "^2.0.7",
     "prettier": "^2.2.1",
     "typescript": "^4.1.5"
-  }
+  },
+  "keywords": [
+    "image",
+    "resize",
+    "picture",
+    "source",
+    "breakpoints",
+    "srcset",
+    "width",
+    "avif",
+    "generate",
+    "responsive",
+    "responsive image",
+    "generator",
+    "cli"
+  ]
 }
