@@ -7,7 +7,7 @@ import getInputExtension from './helpers/getInputExtension';
 import getFilenameBase from './helpers/getFilenameBase';
 
 program
-  .version('0.0.1-2')
+  .version('0.1.0')
   .option('-i, --input <path>', 'Input image path')
   .option('-b, --breakpoints <breakpoints>', 'breakpoints which images will be generated')
   .option('-o, --output <output>', 'output path');
