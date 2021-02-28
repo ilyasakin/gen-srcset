@@ -1,9 +1,7 @@
 #!/usr/bin/env node
-
 import { program } from 'commander';
-import sharp from 'sharp';
 import path from 'path';
-import getInputExtension from './helpers/getInputExtension';
+import { spawn, Thread, Worker } from 'threads';
 import getFilenameBase from './helpers/getFilenameBase';
 
 program
@@ -26,17 +24,16 @@ const main = async () => {
 
   const breakpoints = options.breakpoints.split(',').map((value) => value.replace(' ', ''));
 
-  breakpoints.forEach((breakpoint) => {
-    sharp(input)
-      .resize(parseInt(breakpoint, 10))
-      .toFile(`${output}/${filenameBase}_${breakpoint}${getInputExtension(filename)}`);
+  breakpoints.forEach(async (breakpoint) => {
+    const pictureService = await spawn(new Worker('./services/picture.js'));
+    await pictureService.resizeOnly(input, breakpoint, output, filenameBase, filename);
+    await Thread.terminate(pictureService);
   });
 
-  breakpoints.forEach((breakpoint) => {
-    sharp(input)
-      .resize(parseInt(breakpoint, 10))
-      .avif()
-      .toFile(`${output}/${filenameBase}_${breakpoint}.avif`);
+  breakpoints.forEach(async (breakpoint) => {
+    const pictureService = await spawn(new Worker('./services/picture.js'));
+    await pictureService.toAvif(input, breakpoint, output, filenameBase);
+    await Thread.terminate(pictureService);
   });
 };
 

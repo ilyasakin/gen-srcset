@@ -19,7 +19,8 @@
   "dependencies": {
     "@babel/runtime": "^7.12.13",
     "commander": "^7.1.0",
-    "sharp": "^0.27.1"
+    "sharp": "^0.27.1",
+    "threads": "^1.6.3"
   },
   "devDependencies": {
     "@atolye15/eslint-config": "^1.2.0",
