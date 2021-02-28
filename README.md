@@ -5,6 +5,7 @@ Generate \<picture /> srcset with AVIF support.
 ## Cli arguments
 
 - **-i --input:** input file
+- **-o --output:** output path (optional, defaults to current path)
 - **-b --breakpoints:** image widths that gen-srcset should generate
 - **-h --help:** displays this section
 
