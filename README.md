@@ -1,10 +1,12 @@
 # gen-srcset
+![gen-srcset](https://user-images.githubusercontent.com/23039187/109422210-a35d2c80-79eb-11eb-9fdb-47ba52a29e94.png)
 
 Generate \<picture /> srcset with AVIF support.
 
 ## Cli arguments
 
 - **-i --input:** input file
+- **-o --output:** output path (optional, defaults to current path)
 - **-b --breakpoints:** image widths that gen-srcset should generate
 - **-h --help:** displays this section
 
