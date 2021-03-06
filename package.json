@@ -1,6 +1,6 @@
 {
   "name": "gen-srcset",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "main": "src/index.js",
   "bin": {
     "gen-srcset": "./index.js"

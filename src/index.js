@@ -5,7 +5,7 @@ import { spawn, Thread, Worker } from 'threads';
 import getFilenameBase from './helpers/getFilenameBase';
 
 program
-  .version('0.2.0')
+  .version('0.3.0')
   .option('-i, --input <path>', 'Input image path')
   .option('-b, --breakpoints <breakpoints>', 'breakpoints which images will be generated')
   .option('-o, --output <output>', 'output path')
