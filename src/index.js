@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import path from 'path';
-import { spawn, Thread, Worker } from 'threads';
+import { spawn, Worker, Pool } from 'threads';
 import getFilenameBase from './helpers/getFilenameBase';
 
 program
-  .version('0.3.0')
+  .version('0.4.0')
   .option('-i, --input <path>', 'Input image path')
   .option('-b, --breakpoints <breakpoints>', 'breakpoints which images will be generated')
   .option('-o, --output <output>', 'output path')
@@ -26,18 +26,21 @@ const main = async () => {
 
   const breakpoints = options.breakpoints.split(',').map((value) => value.replace(' ', ''));
 
+  const pictureService = Pool(() => spawn(new Worker('./services/picture.js')));
+
   breakpoints.forEach(async (breakpoint) => {
-    const pictureService = await spawn(new Worker('./services/picture.js'));
-    await pictureService.resizeOnly(input, breakpoint, output, filenameBase, filename);
-    await Thread.terminate(pictureService);
+    pictureService.queue((picture) =>
+      picture.resizeOnly(input, breakpoint, output, filenameBase, filename),
+    );
   });
 
-  if (noAvif) return;
   breakpoints.forEach(async (breakpoint) => {
-    const pictureService = await spawn(new Worker('./services/picture.js'));
-    await pictureService.toAvif(input, breakpoint, output, filenameBase);
-    await Thread.terminate(pictureService);
+    if (noAvif) return;
+    pictureService.queue((picture) => picture.toAvif(input, breakpoint, output, filenameBase));
   });
+
+  await pictureService.completed();
+  await pictureService.terminate();
 };
 
 try {
