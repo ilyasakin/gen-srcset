@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import path from 'path';
-import { spawn, Thread, Worker, Pool } from 'threads';
+import { spawn, Worker, Pool } from 'threads';
 import getFilenameBase from './helpers/getFilenameBase';
 
 program
