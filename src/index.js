@@ -5,7 +5,7 @@ import { spawn, Worker, Pool } from 'threads';
 import getFilenameBase from './helpers/getFilenameBase';
 
 program
-  .version('0.4.0')
+  .version('0.4.1')
   .option('-i, --input <path>', 'Input image path')
   .option('-b, --breakpoints <breakpoints>', 'breakpoints which images will be generated')
   .option('-o, --output <output>', 'output path')
@@ -15,14 +15,15 @@ program.parse(process.argv);
 
 const main = async () => {
   const options = program.opts();
+
+  if (!options.input) throw new Error('input argument is required');
+  if (!options.breakpoints) throw new Error('breakpoints argument is required');
+
   const input = path.resolve(options.input);
   const filename = path.basename(input);
   const filenameBase = getFilenameBase(filename);
   const output = options.output || '.';
   const { noAvif } = options;
-
-  if (!options.input) throw new Error('input argument is required');
-  if (!options.breakpoints) throw new Error('breakpoints argument is required');
 
   const breakpoints = options.breakpoints.split(',').map((value) => value.replace(' ', ''));
 
