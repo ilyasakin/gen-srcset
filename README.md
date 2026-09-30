@@ -3,11 +3,29 @@
 
 Generate \<picture /> srcset with AVIF support.
 
+## Requirements
+
+Node.js 22 or newer; Node.js 24 LTS is recommended. Older Node.js versions are no longer supported.
+
+## Development
+
+Use Yarn Classic 1.22.22 (`npm install --global yarn@1.22.22`), then run:
+
+```bash
+yarn install --frozen-lockfile
+yarn validate
+```
+
+`yarn validate` lints the source, runs the existing unit tests, builds the CLI, and checks real JPEG, PNG and AVIF output. CI validates Node.js 22 and 24 on pushes and pull requests.
+
+Publishing only runs after a non-prerelease GitHub release is published and validation passes. The release tag must be `v` followed by the package version (for example, `v0.4.1`). Keep the CLI version in `src/index.js` in sync when bumping the package version. Publishing requires the existing `NPM_TOKEN` repository secret. Pushing to `main` does not publish a package.
+
 ## Cli arguments
 
 - **-i --input:** input file
 - **-o --output:** output path (optional, defaults to current path)
 - **-b --breakpoints:** image widths that gen-srcset should generate
+- **-n --noAvif:** skip AVIF output
 - **-h --help:** displays this section
 
 ## Example usage

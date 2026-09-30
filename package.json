@@ -12,14 +12,17 @@
     "start": "node dist/index.js",
     "dev": "nodemon --exec babel-node --extensions '.js,.ts' src/index.js",
     "build": "yarn run babel --extensions '.js,.ts' --ignore '**/__tests__' src -d dist --copy-files",
-    "postbuild": "cp package.json dist && cp README.md dist",
+    "postbuild": "node scripts/prepare-package.cjs",
     "pretest": "yarn run deliquus",
-    "test": "jest"
+    "test": "jest",
+    "test:smoke": "node scripts/smoke.cjs",
+    "validate": "yarn lint && yarn test --runInBand && yarn build && yarn test:smoke",
+    "lint": "eslint src"
   },
   "dependencies": {
-    "@babel/runtime": "^7.15.4",
+    "@babel/runtime": "^7.29.7",
     "commander": "^8.2.0",
-    "sharp": "^0.29.1",
+    "sharp": "^0.35.5",
     "threads": "^1.7.0"
   },
   "devDependencies": {
@@ -52,5 +55,9 @@
     "responsive image",
     "generator",
     "cli"
-  ]
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "yarn@1.22.22"
 }

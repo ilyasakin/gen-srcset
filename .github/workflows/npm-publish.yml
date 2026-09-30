@@ -1,23 +1,39 @@
 name: npm publish
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
 jobs:
-  build:
+  check:
+    uses: ./.github/workflows/ci.yml
+  publish:
+    needs: check
+    if: ${{ !github.event.release.prerelease }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to npm
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          node-version: '15.x'
-          registry-url: 'https://registry.npmjs.org'
-          # Defaults to the user or organization that owns the workflow file
-          scope: '@octocat'
-      - run: yarn
-      - run: yarn test
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Verify release tag matches package version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: node -e 'if (process.env.RELEASE_TAG !== `v${require("./package.json").version}`) process.exit(1)'
+      - run: npm install --global --force yarn@1.22.22
+      - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: yarn publish dist/ --no-git-tag-version
+      - name: Configure npm publishing
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+      - run: npm publish ./dist
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
